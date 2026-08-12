@@ -1,0 +1,28 @@
+{
+  "catalog_version": "1",
+  "updated": "2026-08-12",
+  "plugins": [
+    {
+      "slug": "cdromance",
+      "name": "CDRomance",
+      "author": "MoveWeight",
+      "repository": "https://git.moveweight.com/BlizzHacker/romarr-plugin-cdromance",
+      "install": "https://git.moveweight.com/BlizzHacker/romarr-plugin-cdromance",
+      "download": "https://git.moveweight.com/BlizzHacker/romarr-plugin-cdromance/archive/v0.1.0.tar.gz",
+      "version": "0.1.0",
+      "ref": "v0.1.0",
+      "updated": "2026-08-12",
+      "rpp_version": "1",
+      "capabilities": [],
+      "platforms": [],
+      "network": ["cdromance.org"],
+      "status": "broken",
+      "search_only": false,
+      "key_required": false,
+      "in_tree": false,
+      "description": "NOT INSTALLABLE. Every path on cdromance.org, including /robots.txt, returns HTTP 403 behind a Cloudflare managed challenge, so the site serves no readable content to a plain HTTPS client.",
+      "terms": "This repository records a survey finding. It fetches, indexes and redistributes nothing.",
+      "comments": "Not a rate limit or a soft bot score -- a managed challenge (cType: 'managed'). Getting past it means executing Cloudflare's JavaScript and carrying a clearance cookie, which is circumvention and is refused. It is independently impossible in the runtime anyway: a plugin has no JavaScript engine and the cookie jar is cleared before every request. Because even robots.txt is unreadable, the site's crawl policy is unknown, so no provider could honour it. Recommend dropping from the target list."
+    }
+  ]
+}
