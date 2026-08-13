@@ -1,13 +1,15 @@
 # CDRomance provider for ROM Hub / ROMarr
 
-**Status: not installable. This repository is documentation and a catalogue
-entry, not a working provider.**
+**Status: no standalone RPP provider. Use the signed-in ROMarr Capture browser
+extension for pages you can open in Brave/Chromium.** This repository remains
+the ROM Hub catalogue record and documents why anonymous plugin HTTP cannot
+serve as the transport.
 
 | Capability | Status |
 |---|---|
-| `search` | **Unavailable** — the whole site is behind a Cloudflare managed challenge |
-| `importer` | **Unavailable** — same reason |
-| `stream` | **Unavailable** — same reason |
+| ROM Hub `search` | Unavailable to anonymous `ctx.http` |
+| ROMarr Capture | Implemented for detail pages; runs only on a page the operator opened |
+| Browser download | Uses the site's own rendered controls and browser session |
 
 ## The finding
 
@@ -35,27 +37,31 @@ Two consequences worth stating separately:
   detail-page format, and no answer to whether the site still hosts files.
   None of it was observable.
 
-## Why this is a full stop rather than a hard problem
+## Why this is a browser-assisted source
 
-Getting past a managed challenge means executing Cloudflare's JavaScript
-challenge and carrying its clearance cookie — i.e. defeating a bot check that
-the site operator deliberately turned on. That is circumvention, and this
-project does not do it. The rule is the same one that made the Vimm.net work
-decline to forge a `Referer` header.
+An automated client must not defeat Cloudflare's challenge. A person opening
+the page in their normal signed-in browser is different: the browser has
+already rendered the page through the site's ordinary flow. ROMarr Capture
+reads that rendered page and sends the extracted catalogue row to the
+operator's own ROMarr; it does not solve challenges, crawl links, or send a
+request to CDRomance itself.
 
-It is also independently impossible inside the runtime, which is worth knowing
-so nobody spends a weekend on it: an RPP v1 plugin has no JavaScript engine,
+It remains unavailable inside the standalone RPP runtime: a plugin has no JavaScript engine,
 `ctx.http` cannot execute a challenge, and the cookie jar is cleared before
 every request (`rom_hub/broker/fetcher.py`), so a clearance cookie could not
 be carried to a second request even if one were somehow obtained.
 
-**Recommendation: drop CDRomance from the target list.** Nothing about this is
-likely to change unless the site turns the challenge off.
+The Capture adapter is deliberately preview-first because its selectors have
+not yet been verified against a live detail page. Open a game page, click the
+ROMarr Capture icon, and check that title, platform, and size are present before
+sending. A missing field is an adapter bug to fix, not a reason to discard the
+source.
 
 ## Terms
 
-Nothing here fetches, indexes or redistributes anything. This repository
-records a finding.
+The standalone provider fetches and redistributes nothing. Browser capture
+indexes only metadata from a page the operator opened; it grants no rights to
+download or redistribute the site's files.
 
 ## License
 

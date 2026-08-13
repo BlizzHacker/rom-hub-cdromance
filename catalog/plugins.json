@@ -17,12 +17,12 @@
       "platforms": [],
       "network": ["cdromance.org"],
       "status": "broken",
-      "search_only": false,
+      "search_only": true,
       "key_required": false,
       "in_tree": false,
-      "description": "NOT INSTALLABLE. Every path on cdromance.org, including /robots.txt, returns HTTP 403 behind a Cloudflare managed challenge, so the site serves no readable content to a plain HTTPS client.",
-      "terms": "This repository records a survey finding. It fetches, indexes and redistributes nothing.",
-      "comments": "Not a rate limit or a soft bot score -- a managed challenge (cType: 'managed'). Getting past it means executing Cloudflare's JavaScript and carrying a clearance cookie, which is circumvention and is refused. It is independently impossible in the runtime anyway: a plugin has no JavaScript engine and the cookie jar is cleared before every request. Because even robots.txt is unreadable, the site's crawl policy is unknown, so no provider could honour it. Recommend dropping from the target list."
+      "description": "BROWSER-ASSISTED. Anonymous plugin HTTP is blocked by Cloudflare, but ROMarr Capture can index a detail page the operator opens normally in Brave/Chromium.",
+      "terms": "The standalone provider fetches and redistributes nothing. Browser capture indexes metadata only from a page the operator opened and grants no rights to download or redistribute the site's files.",
+      "comments": "Every anonymous path, including robots.txt, returns a Cloudflare managed challenge, so there is intentionally no standalone RPP manifest. This is no longer treated as a dead end: ROMarr Capture has a preview-first CDRomance detail adapter that reads the already-rendered page without crawling or solving the challenge. Its selectors still need verification in an operator session; missing title/platform/size is an adapter defect, not proof that the source is impossible."
     }
   ]
 }
